@@ -39,7 +39,7 @@ def final_process(data1: List[int], data2: List[int]) -> List[int]:
     final_process takes in two list data structures consisting of integers and returns the average"""
     return np.mean([x - y for x, y in zip(data1, data2)])
 
-offload_url = 'http://192.168.2.74:5000' # TODO: Change this to the IP address of your server
+offload_url = 'http://192.168.2.74:8000' # TODO: Change this to the IP address of your server
 
 def run(offload: Optional[str] = None) -> float:
     """Run the program, offloading the specified function(s) to the server.
