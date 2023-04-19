@@ -92,7 +92,7 @@ def run(offload: Optional[str] = None) -> float:
             nonlocal data1, data2
             theResponse1 = requests.post(f'{offload_url}/process1', json=data)
             data1 = theResponse1.json()
-            theResponse2 = requests.post(f'{offload_url}/process1', json=data)
+            theResponse2 = requests.post(f'{offload_url}/process2', json=data)
             data2 = theResponse2.json()
         thread = threading.Thread(target=offload_both, args=(data,))
         thread.start()
