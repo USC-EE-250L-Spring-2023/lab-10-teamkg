@@ -88,15 +88,20 @@ def run(offload: Optional[str] = None) -> float:
         #pass
         data1 = None
         data2 = None
-        def offload_both(data):
-            nonlocal data1, data2
-            theResponse1 = requests.post(f'{offload_url}/process1', json=data)
-            data1 = theResponse1.json()
-            theResponse2 = requests.post(f'{offload_url}/process2', json=data)
-            data2 = theResponse2.json()
-        thread = threading.Thread(target=offload_both, args=(data,))
-        thread.start()
-        thread.join()
+        def offload_process1(data):
+            nonlocal data1
+            theResponse = requests.post(f'{offload_url}/process1', json=data)
+            data1 = theResponse.json()
+        def offload_process2(data):
+            nonlocal data2
+            theResponse = requests.post(f'{offload_url}/process2', json=data)
+            data2 = theResponse.json() 
+        thread1 = threading.Thread(target=offload_process1, args=(data,))
+        thread1.start()
+        thread1.join()
+        thread2 = threading.Thread(target=offload_process2, args=(data,))
+        thread2.start()
+        thread2.join()
     ans = final_process(data1, data2)
     return ans 
 
